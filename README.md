@@ -1,10 +1,26 @@
-# 图片查看器Obsidian插件
+# Obsidian 图片查看器
 
-增强图片浏览体验
+点击笔记中的图片，浮层放大查看，支持缩放、拖拽、键盘导航。
+
+## 功能
+
+- 点击任意图片 → 全屏浮层预览
+- 鼠标滚轮缩放、右键/ESC 关闭
+- 多图浏览：左右箭头或键盘 ← → 切换
+- 自适应暗色/亮色主题
+- 显示图片文件名
+
+## 快捷键
+
+| 按键 | 功能 |
+|------|------|
+| ← → | 切换图片 |
+| ESC | 关闭 |
+| 滚轮 | 缩放 |
 
 ## 安装
 
-下载 `main.js`、`manifest.json`、`styles.css` 放入 Obsidian 库的 `.obsidian/plugins/image-viewer/` 目录，在设置中启用。
+下载 `main.js`、`manifest.json`、`styles.css`，放入 `.obsidian/plugins/image-viewer/`，重启 Obsidian 启用。
 
 ## 作者
 
