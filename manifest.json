@@ -1,0 +1,10 @@
+{
+  "id": "image-viewer",
+  "name": "图片查看器",
+  "version": "1.0.0",
+  "minAppVersion": "0.15.0",
+  "description": "点击笔记中的图片，在浮层中缩放、平移、前后浏览图片，像专业图片查看器一样工作",
+  "author": "小D x 国豪",
+  "authorUrl": "",
+  "isDesktopOnly": false
+}

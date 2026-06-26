@@ -1,0 +1,198 @@
+/* ===== 图片查看器 ===== */
+
+.image-viewer-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    -webkit-user-select: none;
+    animation: imageViewerFadeIn 0.2s ease-out;
+}
+
+/* 半透明背景 */
+.image-viewer-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+}
+
+/* ---- 顶部工具栏 ---- */
+.image-viewer-toolbar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 12px 20px;
+    background: linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%);
+    color: #eee;
+    font-size: 14px;
+    pointer-events: none;
+}
+.image-viewer-toolbar > * {
+    pointer-events: auto;
+}
+
+.image-viewer-counter {
+    font-variant-numeric: tabular-nums;
+    opacity: 0.8;
+}
+
+.image-viewer-zoom-level {
+    font-variant-numeric: tabular-nums;
+    min-width: 48px;
+    text-align: center;
+    opacity: 0.8;
+}
+
+.image-viewer-btn {
+    background: none;
+    border: none;
+    color: #eee;
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-size: 18px;
+    line-height: 1;
+    transition: background 0.15s;
+}
+.image-viewer-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+.image-viewer-btn-close {
+    font-size: 20px;
+    margin-left: auto;
+    padding: 6px 12px;
+}
+
+/* ---- 图片容器 ---- */
+.image-viewer-container {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 60px 70px;
+    box-sizing: border-box;
+}
+
+/* 图片舞台 — 用于 CSS transform 缩放和平移 */
+.image-viewer-stage {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    cursor: grab;
+}
+.image-viewer-stage.dragging {
+    cursor: grabbing;
+}
+.image-viewer-stage.zoomable {
+    cursor: grab;
+}
+
+.image-viewer-image {
+    display: block;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transform-origin: center center;
+    will-change: transform;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    /* 基础样式无 transition —— 拖拽时直接瞬间响应 */
+    transition: none;
+}
+/* 缩放时加上平滑过渡 */
+.image-viewer-image.zooming {
+    transition: transform 0.1s ease-out;
+}
+
+/* ---- 导航按钮 ---- */
+.image-viewer-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.08);
+    border: none;
+    color: #eee;
+    font-size: 36px;
+    width: 48px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background 0.15s, opacity 0.2s;
+    opacity: 0.5;
+    line-height: 1;
+    backdrop-filter: blur(4px);
+}
+.image-viewer-nav:hover {
+    background: rgba(255, 255, 255, 0.2);
+    opacity: 1;
+}
+.image-viewer-nav-prev {
+    left: 12px;
+}
+.image-viewer-nav-next {
+    right: 12px;
+}
+.image-viewer-nav.hidden {
+    display: none;
+}
+
+/* ---- 底部文件名 ---- */
+.image-viewer-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    text-align: center;
+    padding: 14px 20px 18px;
+    background: linear-gradient(0deg, rgba(0,0,0,0.6) 0%, transparent 100%);
+    color: #ccc;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+/* ---- 动画 ---- */
+@keyframes imageViewerFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.image-viewer-image.entering {
+    animation: imageViewerEnter 0.25s ease-out;
+}
+@keyframes imageViewerEnter {
+    from { transform: scale(0.92); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.image-viewer-image.switching {
+    animation: imageViewerSwitch 0.15s ease-out;
+}
+@keyframes imageViewerSwitch {
+    0% { opacity: 0; transform: scale(0.96); }
+    100% { opacity: 1; transform: scale(1); }
+}
